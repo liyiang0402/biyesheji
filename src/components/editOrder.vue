@@ -96,6 +96,18 @@ export default {
     this.editOrderData.editDate = this.$route.query.editDate + ' 天';
     // this.editOrderData.editOrderType = this.$route.query.editOrderType;
   },
+  methods: {
+    submitForm(formName) {
+      let that = this;
+      this.$axios.post('http://rapapi.org/mockjsdata/33115/api/addclothdata',that.formName)
+      .then(function(res){
+        that.$message({
+          message: '提交成功',
+          center: true
+        });
+      })
+    }
+  }
 }
 </script>
 

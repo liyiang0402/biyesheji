@@ -9,6 +9,7 @@ import myCloth from '@/components/myCloth'
 import allOrders from '@/components/allOrders'
 import editCloth from '@/components/editCloth'
 import editOrder from '@/components/editOrder'
+import refound from '@/components/refound'
 
 Vue.use(Router)
 Vue.use(ElementUI)
@@ -18,6 +19,7 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
+      redirect:'/home/homepage',
       component: Home,
       children: [
         {
@@ -70,7 +72,15 @@ export default new Router({
             pre2: {name:'全部订单',path:'/home/allorders'},
             now: {name:'订单处理'}
           }
-        }
+        },
+        {
+          path: '/home/refound',
+          component: refound,
+          meta: {
+            pre: {name:'订单管理'},
+            now: {name:'退款处理'}
+          }
+        },
       ]
     }
   ]

@@ -1,6 +1,6 @@
 <template>
 <div class="sideMenu">
-  <el-menu class="el-menu-vertical-demo" :default-active="onRoutes" default-active="/home/homepage" unique-opened router background-color="#2E363F" text-color="#FFFFFF">
+  <el-menu class="el-menu-vertical-demo" :default-active="onRoutes" unique-opened router background-color="#2E363F" text-color="#FFFFFF">
     <template v-for="(item,index) in items">
           <el-submenu :key="item" :index="index+''" v-if="item.subs">
             <template slot="title">
@@ -49,20 +49,15 @@ export default {
               title: '全部订单'
             },
             {
-              index: 'vueeditor',
-              title: '编辑器'
+              index: '/home/refound',
+              title: '退款处理'
             }
           ]
         },
         {
           icon: 'el-icon-star-on',
           index: 'basecharts',
-          title: '图表'
-        },
-        {
-          icon: 'el-icon-upload2',
-          index: 'drag',
-          title: '拖拽'
+          title: '个人中心'
         }
       ]
     }
