@@ -10,6 +10,7 @@ import allOrders from '@/components/allOrders'
 import editCloth from '@/components/editCloth'
 import editOrder from '@/components/editOrder'
 import refound from '@/components/refound'
+import mine from '@/components/mine'
 
 Vue.use(Router)
 Vue.use(ElementUI)
@@ -81,6 +82,13 @@ export default new Router({
             now: {name:'退款处理'}
           }
         },
+        {
+          path: '/home/mine',
+          component: mine,
+          meta: {
+            now: {name:'个人中心'},
+          }
+        }
       ]
     }
   ]

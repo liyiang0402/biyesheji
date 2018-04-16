@@ -64,45 +64,45 @@
 export default {
   data () {
     return {
-      // data: [],
-      data: [
-        {
-          clothId: '12987140',
-          clothName: '好滋好味鸡蛋仔',
-          clothDes: '荷兰优质淡奶，奶香浓而不腻',
-          clothNum: 5,
-          clothType: '西装',
-          clothPrice: '1400',
-        },
-        {
-          clothId: '12987121',
-          clothName: '春季男装',
-          clothDes: '荷兰优质淡奶',
-          clothNum: 3,
-          clothType: '西装',
-          clothPrice: '2000',
-        },
-        {
-          clothId: '12987122',
-          clothName: '夏季羽绒服',
-          clothDes: '红色',
-          clothNum: 50,
-          clothType: '羽绒服',
-          clothPrice: '14000',
-        },
-      ],
+      data: [],
+      // data: [
+      //   {
+      //     clothId: '12987140',
+      //     clothName: '好滋好味鸡蛋仔',
+      //     clothDes: '荷兰优质淡奶，奶香浓而不腻',
+      //     clothNum: 5,
+      //     clothType: '西装',
+      //     clothPrice: '1400',
+      //   },
+      //   {
+      //     clothId: '12987121',
+      //     clothName: '春季男装',
+      //     clothDes: '荷兰优质淡奶',
+      //     clothNum: 3,
+      //     clothType: '西装',
+      //     clothPrice: '2000',
+      //   },
+      //   {
+      //     clothId: '12987122',
+      //     clothName: '夏季羽绒服',
+      //     clothDes: '红色',
+      //     clothNum: 50,
+      //     clothType: '羽绒服',
+      //     clothPrice: '14000',
+      //   },
+      // ],
       pagesize: 7,
       currentPage: 1,
       filterTable: ''
     };
   },
-  // created() {
-  //   let that = this;
-  //   this.$axios.get('http://rapapi.org/mockjsdata/33115/api/clothdata')
-  //     .then(function(res){
-  //       that.data = res.data.clothData
-  //     })
-  // },
+  created() {
+    let that = this;
+    this.$axios.get('/api/clothData')
+      .then(function(res){
+        that.data = res.data.data
+      })
+  },
   computed: {
     total () {
       if (this.table_data.length) {

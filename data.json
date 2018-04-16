@@ -1,0 +1,28 @@
+{
+    "clothData": [
+        {
+            "clothId": "12987140",
+            "clothName": "鸡蛋仔",
+            "clothDes": "荷兰优质淡奶，奶香浓而不腻",
+            "clothNum": "18",
+            "clothType": "西装",
+            "clothPrice": "140"
+        },
+        {
+            "clothId": "12987141",
+            "clothName": "好滋好味鸡蛋仔",
+            "clothDes": "荷兰优质淡奶，不腻",
+            "clothNum": "5",
+            "clothType": "T恤",
+            "clothPrice": "200"
+        },
+        {
+            "clothId": "12987142",
+            "clothName": "好滋好",
+            "clothDes": "荷，奶香浓而不腻",
+            "clothNum": "5",
+            "clothType": "棉服",
+            "clothPrice": "1400"
+        }
+    ]
+}

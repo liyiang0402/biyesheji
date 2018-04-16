@@ -56,7 +56,7 @@ export default {
         },
         {
           icon: 'el-icon-star-on',
-          index: 'basecharts',
+          index: '/home/mine',
           title: '个人中心'
         }
       ]

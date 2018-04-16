@@ -7,7 +7,7 @@
     <el-dropdown trigger="click">
       <span class="user-info-name el-dropdown-link">
         <img class="user-info-img" src="../assets/cat.jpg">
-        小一
+        {{shopOwnerName}}
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item>退出登录</el-dropdown-item>
@@ -18,7 +18,28 @@
 </template>
 
 <script>
+import Bus from '../eventBus.js'
+
 export default {
+  data() {
+    return {
+      shopOwnerName: '小一'
+    }
+  },
+  // computed: {
+  //   shopOwnerName:function () {
+  //     return this.$refs.mineData.shopOwnerName
+  //   }
+  // }
+  created: function(){
+    Bus.$on('mineData', (arg)=>{
+      if (arg) {
+        this.shopOwnerName = arg
+      } else {
+        this.shopOwnerName = "小一"
+      }
+    })
+  }
 }
 </script>
 

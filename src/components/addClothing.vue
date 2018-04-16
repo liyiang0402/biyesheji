@@ -20,14 +20,14 @@
       <el-row>
         <el-col :span="14">
           <el-form-item label="服装数量" required  prop="clothNum">
-            <el-input-number v-model.number="addform.clothNum" @change="handleChange" :min="1"  label="服装数量"></el-input-number>
+            <el-input-number v-model="addform.clothNum" @change="handleChange" :min="1"  label="服装数量"></el-input-number>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="5">
           <el-form-item label="服装价格" required  prop="clothPrice">
-            <el-input v-model.number="addform.clothPrice" auto-complete="off"  suffix-icon="el-icon-renminbi" placeholder="请输入单价/天"></el-input>
+            <el-input v-model="addform.clothPrice" auto-complete="off"  suffix-icon="el-icon-renminbi" placeholder="请输入单价/天"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -43,9 +43,9 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <!-- <el-row>
         <el-col :span="21">
-          <el-form-item label="服装照片" required  prop="clothImg">
+          <el-form-item label="服装照片"   prop="clothImg">
             <el-upload
               action="https://jsonplaceholder.typicode.com/posts/"
               list-type="picture-card"
@@ -60,9 +60,9 @@
             </el-dialog>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row> -->
       <el-row>
-        <el-col :span="6">
+        <el-col :span="7">
           <el-form-item>
             <el-button type="primary" @click="submitForm('addform')">提交</el-button>
             <el-button @click="resetForm('addform')">重置</el-button>
@@ -76,7 +76,6 @@
 export default {
   data () {
     var checkPrice = (rule, value, callback) => {
-      console.log(value);
           let reg=/^[0-9]+$$/;
            if (!value) {
              return callback(new Error('单价不能为空'));
@@ -95,7 +94,6 @@ export default {
         clothNum: 1,
         clothPrice: 0,
         clothDes: '',
-        clothImg: ''
       },
       rules: {
             clothName: [
@@ -115,7 +113,6 @@ export default {
   methods: {
     handleChange (value) {
       // console.log(value)
-      console.log(typeof(this.addform.clothNum));
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;  //后期需要修改
@@ -142,7 +139,12 @@ export default {
        this.$refs[formName].validate((valid) => {
                  if (valid) {
                    let that = this;
-                   this.$axios.post('http://rapapi.org/mockjsdata/33115/api/addclothdata',that.formName)
+                   this.addform.clothId = "1234235r";
+                   this.addform.clothNum = "" +this.addform.clothNum;
+                   let formdata = {};
+                   formdata=JSON.stringify(this.addform);
+                   console.log(formdata);
+                   this.$axios.post('/api/addCloth',formdata)
                      .then(function(res){
                        that.$message({
                          message: '提交成功',
@@ -150,9 +152,6 @@ export default {
                        });
                        that.$refs[formName].resetFields();
                      })
-                 } else {
-                   console.log('error submit!!');
-                   return false;
                  }
                });
       },
