@@ -101,6 +101,7 @@ export default {
     this.$axios.get('/api/clothData')
       .then(function(res){
         that.data = res.data.data
+        console.log('clothData', res.data.data);
       })
   },
   computed: {

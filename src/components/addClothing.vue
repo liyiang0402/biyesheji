@@ -143,7 +143,7 @@ export default {
                    this.addform.clothNum = "" +this.addform.clothNum;
                    let formdata = {};
                    formdata=JSON.stringify(this.addform);
-                   console.log(formdata);
+                   console.log('formdata', formdata);
                    this.$axios.post('/api/addCloth',formdata)
                      .then(function(res){
                        that.$message({
