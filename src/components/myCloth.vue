@@ -12,7 +12,7 @@
       <el-table-column
         label="服装id"
         width="140"
-        prop="clothId">
+        prop="cid">
       </el-table-column>
       <el-table-column
         label="服装名称"
@@ -98,10 +98,9 @@ export default {
   },
   created() {
     let that = this;
-    this.$axios.get('/api/clothData')
+    this.$axios.get('/api/getCloth')
       .then(function(res){
         that.data = res.data.data
-        console.log('clothData', res.data.data);
       })
   },
   computed: {

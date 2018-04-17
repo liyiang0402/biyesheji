@@ -94,6 +94,7 @@ export default {
         clothNum: 1,
         clothPrice: 0,
         clothDes: '',
+        clothImg: ''
       },
       rules: {
             clothName: [
@@ -111,6 +112,12 @@ export default {
     }
   },
   methods: {
+    // getDate () {
+    //   var date = new Date(),
+    //       year = date.getFullYear(),
+    //       month = date.getFull
+    //
+    // },
     handleChange (value) {
       // console.log(value)
     },
@@ -139,12 +146,7 @@ export default {
        this.$refs[formName].validate((valid) => {
                  if (valid) {
                    let that = this;
-                   this.addform.clothId = "1234235r";
-                   this.addform.clothNum = "" +this.addform.clothNum;
-                   let formdata = {};
-                   formdata=JSON.stringify(this.addform);
-                   console.log('formdata', formdata);
-                   this.$axios.post('/api/addCloth',formdata)
+                   this.$axios.post('/api/addCloth',that.addform)
                      .then(function(res){
                        that.$message({
                          message: '提交成功',

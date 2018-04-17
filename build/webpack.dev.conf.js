@@ -10,18 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 const express = require('express')
-const bodyParser = require('body-parser');
-const app = express()
 
-const appData = require('../data.json')
-var clothData = appData.clothData
 
-const apiRoutes = express.Router()
-app.use('/api', apiRoutes)
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
@@ -39,23 +29,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       rewrites: [
         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
       ],
-    },
-    before(app){
-      app.get('/api/clothData', function(req, res){
-        res.json({
-          errno: 0,
-          data: clothData
-        })
-      }),
-      app.post('/api/addCloth', (req, res) => {
-        var params = req.body;
-        console.log('ddd', params);
-        clothData.push(params);
-        res.json({
-          errno: 0
-        });
-
-      })
     },
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
