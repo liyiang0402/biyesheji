@@ -48,7 +48,7 @@ export default new Router({
         },
         {
           name:'editCloth',
-          path: '/home/mycloth/editcloth/:id',
+          path: '/home/mycloth/editcloth/:cid',
           component: editCloth,
           meta: {
             pre1: {name:'服装管理'},

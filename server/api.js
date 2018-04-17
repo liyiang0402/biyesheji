@@ -33,11 +33,23 @@ router.get('/getCloth', (req, res) => {
     })
 });
 
+router.get('/getCloth/:cid', (req, res) => {
+    var sql = $sql.user.selectCloth;
+    var params = req.params.cid;
+    conn.query(sql, [params], function(err, result) {
+        if (err) {
+        }
+        if (result) {
+            res.json({
+              data:result
+            });
+        }
+    })
+});
+
 router.post('/addCloth', (req, res) => {
     var sql = $sql.user.addCloth;
     var params = req.body;
-    console.log(1);
-    console.log(params);
     conn.query(sql, [params.clothName,params.clothType,params.clothNum,params.clothPrice,params.clothDes,params.clothImg], function(err, result) {
         if (err) {
           console.log(err);

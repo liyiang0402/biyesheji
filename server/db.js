@@ -1,3 +1,4 @@
+// database数据库表名字
 module.exports = {
     mysql: {
         host: 'localhost',
