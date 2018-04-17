@@ -112,7 +112,7 @@ export default {
     let url = '/api/getCloth/'+this.cid;
     this.$axios.get(url)
       .then((res)=> {
-        this.editData = res.data
+        this.editData = res.data.data
       });
       console.log(this.editData);
   },
@@ -135,7 +135,8 @@ export default {
       this.$refs[formName].validate((valid) => {
                 if (valid) {
                   let that = this;
-                  this.$axios.post('http://rapapi.org/mockjsdata/33115/api/addclothdata',that.formName)
+                  let url = '/api/editCloth/'+this.cid;
+                  this.$axios.post(url,that.editData)
                     .then(function(res){
                       that.$message({
                         message: '提交成功',

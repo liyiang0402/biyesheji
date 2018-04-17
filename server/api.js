@@ -32,6 +32,20 @@ router.get('/getCloth', (req, res) => {
         }
     })
 });
+router.get('/deleteCloth/:cid', (req, res) => {
+    var sql = $sql.user.deleteCloth;
+    var params = req.params.cid;
+    console.log(params);
+    conn.query(sql, [params], function(err, result) {
+        if (err) {
+        }
+        if (result) {
+            res.json({
+              success:200
+            });
+        }
+    })
+});
 
 router.get('/getCloth/:cid', (req, res) => {
     var sql = $sql.user.selectCloth;
@@ -50,12 +64,24 @@ router.get('/getCloth/:cid', (req, res) => {
 router.post('/addCloth', (req, res) => {
     var sql = $sql.user.addCloth;
     var params = req.body;
-    conn.query(sql, [params.clothName,params.clothType,params.clothNum,params.clothPrice,params.clothDes,params.clothImg], function(err, result) {
+    conn.query(sql, [params.clothName,params.clothType,params.clothNum,params.clothPrice,params.clothDes], function(err, result) {
         if (err) {
-          console.log(err);
         }
         if (result) {
-          console.log(2);
+            res.json({
+              data:result
+            });
+        }
+    })
+});
+router.post('/editCloth/:cid', (req, res) => {
+    var sql = $sql.user.editCloth;
+    var params = req.body;
+    var cid = req.params.cid;
+    conn.query(sql, [params.clothName,params.clothType,params.clothNum,params.clothPrice,params.clothDes,cid], function(err, result) {
+        if (err) {
+        }
+        if (result) {
             res.json({
               data:result
             });

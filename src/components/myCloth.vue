@@ -46,7 +46,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click="handleDelete(scope.row.cid)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -54,7 +54,7 @@
       background
       layout="prev, pager, next"
       :total="total"
-      :pagesize="pagesize"
+      :page-size="7"
        @current-change="current_change">
     </el-pagination>
   </div>
@@ -89,20 +89,19 @@ export default {
       const _this = this
       if (_this.filterTable) {
         return _this.data.filter(function (d) {
-          if (d.clothId.indexOf(_this.filterTable) > -1
-          ||d.clothName.indexOf(_this.filterTable) > -1
+          if (d.clothName.indexOf(_this.filterTable) > -1
           ||d.clothDes.indexOf(_this.filterTable) > -1
-          ||d.clothNum.indexOf(_this.filterTable) > -1
-          ||d.clothType.indexOf(_this.filterTable) > -1) {
+          ) {
             return d
           }
         })
       }
       else {
-      return _this.data
+        return _this.data
       }
     }
   },
+  
   methods: {
     current_change: function (currentPage) {
       this.currentPage = currentPage
@@ -115,8 +114,14 @@ export default {
         }
       });
     },
-    handleDelete: function (index, row) {
-      this.data.splice(index, 1)
+    handleDelete: function (cid) {
+      this.$axios.get('/api/deleteCloth/'+cid)
+        .then((res)=>{
+          this.$axios.get('/api/getCloth').then((res)=>{
+            that.data = res.data.data
+            this.$router.go(0)
+          })
+        })
     }
    }
 }
