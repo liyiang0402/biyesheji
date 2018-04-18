@@ -46,7 +46,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.row.cid)">删除</el-button>
+            @click="handleDelete(scope.$index, scope.row.cid)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -101,7 +101,6 @@ export default {
       }
     }
   },
-  
   methods: {
     current_change: function (currentPage) {
       this.currentPage = currentPage
@@ -114,7 +113,8 @@ export default {
         }
       });
     },
-    handleDelete: function (cid) {
+    handleDelete: function (index ,cid) {
+      this.data.splice(index,1)
       this.$axios.get('/api/deleteCloth/'+cid)
         .then((res)=>{
           this.$axios.get('/api/getCloth').then((res)=>{

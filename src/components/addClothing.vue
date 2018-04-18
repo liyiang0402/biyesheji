@@ -94,7 +94,6 @@ export default {
         clothNum: 1,
         clothPrice: 0,
         clothDes: '',
-        clothImg: ''
       },
       rules: {
             clothName: [
