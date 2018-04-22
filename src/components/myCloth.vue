@@ -68,12 +68,12 @@ export default {
       pagesize: 7,
       currentPage: 1,
       filterTable: ''
-    };
+    }
   },
-  created() {
-    let that = this;
+  created () {
+    let that = this
     this.$axios.get('/api/getCloth')
-      .then(function(res){
+      .then(function (res) {
         that.data = res.data.data
       })
   },
@@ -81,7 +81,7 @@ export default {
     total () {
       if (this.table_data.length) {
         return this.table_data.length
-      }else {
+      } else {
         return 1
       }
     },
@@ -89,14 +89,12 @@ export default {
       const _this = this
       if (_this.filterTable) {
         return _this.data.filter(function (d) {
-          if (d.clothName.indexOf(_this.filterTable) > -1
-          ||d.clothDes.indexOf(_this.filterTable) > -1
+          if (d.clothName.indexOf(_this.filterTable) > -1 || d.clothDes.indexOf(_this.filterTable) > -1
           ) {
             return d
           }
         })
-      }
-      else {
+      } else {
         return _this.data
       }
     }
@@ -109,21 +107,21 @@ export default {
       this.$router.push({
         name: 'editCloth',
         params: {
-          cid: row.cid,
+          cid: row.cid
         }
-      });
+      })
     },
-    handleDelete: function (index ,cid) {
-      this.data.splice(index,1)
-      this.$axios.get('/api/deleteCloth/'+cid)
-        .then((res)=>{
-          this.$axios.get('/api/getCloth').then((res)=>{
-            that.data = res.data.data
+    handleDelete: function (index, cid) {
+      this.data.splice(index, 1)
+      this.$axios.get('/api/deleteCloth/' + cid)
+        .then((res) => {
+          this.$axios.get('/api/getCloth').then((res) => {
+            this.data = res.data.data
             this.$router.go(0)
           })
         })
     }
-   }
+  }
 }
 </script>
 
@@ -141,7 +139,7 @@ export default {
   width: 50%;
 }
 .search{
-  display: relative;
+  position: relative;
   top: -55px;
   left: 200px;
   width: 300px;

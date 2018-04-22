@@ -5,8 +5,13 @@ import App from './App'
 import router from './router'
 import './assets/icon/iconfont.css'
 import axios from 'axios'
+import * as filters from './filter.js'
 
-Vue.prototype.$axios = axios;
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
+Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 
