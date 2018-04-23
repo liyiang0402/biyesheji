@@ -11,6 +11,7 @@ import editCloth from '@/components/editCloth'
 import editOrder from '@/components/editOrder'
 import refound from '@/components/refound'
 import mine from '@/components/mine'
+import login from '@/components/login'
 
 Vue.use(Router)
 Vue.use(ElementUI)
@@ -90,6 +91,10 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path: '/login',
+      component: login
     }
   ]
 })

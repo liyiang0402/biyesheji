@@ -3,14 +3,14 @@
   <el-form :model="editData" status-icon ref="editData" :rules="editrules" label-width="100px">
     <el-row>
       <el-col :span="8">
-        <el-form-item label="服装名称" required prop="clothName">
+        <el-form-item label="服装名称" required >
           <el-input v-model="editData.clothName" placeholder="请输入服装名称"></el-input>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="14">
-        <el-form-item label="服装类型" required  prop="clothType">
+        <el-form-item label="服装类型" required >
           <el-select v-model="editData.clothType" placeholder="请选择服装类型">
             <el-option label="类型一" value="1"></el-option>
             <el-option label="类型二" value="2"></el-option>
@@ -27,38 +27,20 @@
     </el-row>
     <el-row>
       <el-col :span="5">
-        <el-form-item label="服装价格" required  prop="clothPrice">
+        <el-form-item label="服装价格" required  >
           <el-input v-model.number="editData.clothPrice" auto-complete="off"  suffix-icon="el-icon-renminbi" placeholder="请输入单价/天"></el-input>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
-        <el-form-item label="服装描述"  prop="clothDes">
+        <el-form-item label="服装描述" >
           <el-input
             type="textarea"
             :rows="3"
             placeholder="请输入对服装的描述"
             v-model="editData.clothDes">
           </el-input>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="21">
-        <el-form-item label="服装照片" required  prop="">
-          <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove">
-            <i class="el-icon-plus"></i>
-          </el-upload>
-          <el-dialog :visible.sync="dialogVisible">
-            <li v-for="img in imgs">
-              <img width="100%" :src="dialogImageUrl" alt="">
-            </li>
-          </el-dialog>
         </el-form-item>
       </el-col>
     </el-row>
@@ -112,9 +94,12 @@ export default {
     let url = '/api/getCloth/'+this.cid;
     this.$axios.get(url)
       .then((res)=> {
-        this.editData = res.data.data
+        this.editData.clothDes = res.data.data[0].clothDes;
+        this.editData.clothName = res.data.data[0].clothName;
+        this.editData.clothNum = res.data.data[0].clothNum;
+        this.editData.clothType = res.data.data[0].clothType;
+        this.editData.clothPrice = res.data.data[0].clothPrice;
       });
-      console.log(this.editData);
   },
   methods: {
     resetForm(formName) {
@@ -136,14 +121,17 @@ export default {
                 if (valid) {
                   let that = this;
                   let url = '/api/editCloth/'+this.cid;
-                  this.$axios.post(url,that.editData)
+                  // delete this.editData[cid];
+                  console.log(11,this.editData);
+                  console.log('/api/editCloth/'+this.cid);
+                  this.$axios.post('/api/editCloth/'+this.cid,that.editData)
                     .then(function(res){
                       that.$message({
                         message: '提交成功',
                         center: true
                       });
-                      that.$refs[formName].resetFields();
                     })
+                    this.$router.push({path:'/home/mycloth'})
                 } else {
                   return false;
                 }

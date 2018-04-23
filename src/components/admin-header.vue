@@ -10,7 +10,7 @@
         {{shopOwnerName}}
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>退出登录</el-dropdown-item>
+        <el-dropdown-item><span @click="logout">退出登录</span></el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -39,6 +39,11 @@ export default {
         this.shopOwnerName = "小一"
       }
     })
+  },
+  methods: {
+    logout() {
+      this.$router.push('/login')
+    }
   }
 }
 </script>

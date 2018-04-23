@@ -20,6 +20,19 @@ var jsonWrite = function(res, ret) {
 };
 
 // 增加获取服装数据接口
+router.post('/getPassword', (req, res) => {
+    var sql = $sql.user.getPassword;
+    var params = req.body;
+    conn.query(sql,[params.userName,params.password], function(err, result) {
+        if (err) {
+        }
+        if (result) {
+            res.json({
+              data:result
+            });
+        }
+    })
+});
 router.get('/getCloth', (req, res) => {
     var sql = $sql.user.getCloth;
     conn.query(sql, 'clothinglist', function(err, result) {
@@ -35,7 +48,6 @@ router.get('/getCloth', (req, res) => {
 router.get('/deleteCloth/:cid', (req, res) => {
     var sql = $sql.user.deleteCloth;
     var params = req.params.cid;
-    console.log(params);
     conn.query(sql, [params], function(err, result) {
         if (err) {
         }
@@ -78,6 +90,8 @@ router.post('/editCloth/:cid', (req, res) => {
     var sql = $sql.user.editCloth;
     var params = req.body;
     var cid = req.params.cid;
+    console.log(params);
+    console.log(cid);
     conn.query(sql, [params.clothName,params.clothType,params.clothNum,params.clothPrice,params.clothDes,cid], function(err, result) {
         if (err) {
         }
