@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="wrapper">
-    <admin-header class="admin-header"></admin-header>
+    <admin-header class="admin-header" :userName="userName"></admin-header>
     <div class="container">
       <side-menu class="side-menu"></side-menu>
       <div class="content">
@@ -22,11 +22,24 @@ export default {
     adminHeader,
     sideMenu
   },
+  data() {
+    return {
+      uid:'',
+      userName:'',
+    }
+  },
   computed: {
     itemlist () {
       return this.$route.meta
     }
-  }
+  },
+  created() {
+      this.uid = localStorage.getItem('uid')
+      this.$axios.get('/api/getUser/'+this.uid)
+        .then((res) => {
+          this.userName = res.data.data[0].userName;
+        })
+  },
 }
 </script>
 

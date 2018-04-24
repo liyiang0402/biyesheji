@@ -14,9 +14,6 @@
             <el-form-item label="密码" prop="password">
               <el-input type="password" v-model="user.password" auto-complete="off"></el-input>
             </el-form-item>
-            <el-form-item label="确认密码" prop="checkPass">
-              <el-input type="password" v-model="user.checkPass" auto-complete="off"></el-input>
-            </el-form-item>
           </el-form>
         </transition>
         <transition name="fade">
@@ -30,6 +27,9 @@
             <el-form-item label="确认密码" prop="checkPass">
               <el-input type="password" v-model="userUp.checkPass" auto-complete="off"></el-input>
             </el-form-item>
+            <el-form-item label="手机号" prop="phoneNumber">
+              <el-input type="input" v-model="userUp.phoneNumber" auto-complete="off"></el-input>
+            </el-form-item>
           </el-form>
         </transition>
       </div>
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+  import Bus from '../eventBus.js'
+
   export default {
     data() {
       var checkUserName = (rule, value, callback) => {
@@ -50,15 +52,18 @@
         }
           callback();
       };
+      var checkPhoneNumber = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入手机号码'));
+        }
+          callback();
+      };
       var validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'));
-        } else {
-          if (this.user.checkPass !== '') {
-            this.$refs.user.validateField('checkPass');
-          }
-          callback();
         }
+          callback();
+
       };
       var validatePass11 = (rule, value, callback) => {
         if (value === '') {
@@ -67,15 +72,6 @@
           if (this.userUp.checkPass !== '') {
             this.$refs.userUp.validateField('checkPass');
           }
-          callback();
-        }
-      };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.user.password) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
           callback();
         }
       };
@@ -89,24 +85,22 @@
         }
       };
       return {
+        userId:'',
         signUpShow: false,
         signInShow: true,
         user: {
           userName: '',
-          password: '',
-          checkPass: ''
+          password: ''
         },
         userUp:{
           userName: '',
           password: '',
-          checkPass: ''
+          checkPass: '',
+          phoneNumber: ''
         },
         rules2: {
           password: [
             { validator: validatePass, trigger: 'blur' }
-          ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
           ],
           userName: [
             { validator: checkUserName, trigger: 'blur' }
@@ -121,6 +115,9 @@
           ],
           userName: [
             { validator: checkUserName, trigger: 'blur' }
+          ],
+          phoneNumber:[
+            { validator: checkPhoneNumber, trigger: 'blur'}
           ]
         },
         getUser:{}
@@ -143,18 +140,33 @@
        },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.getUser.userName = this.user.userName;
-            this.getUser.password = this.user.password;
-            this.$axios.post('/api/getPassword',this.getUser).then((res)=>{
-              if (res.data.data[0]['count(*)'] === 1) {
-                this.$router.push('/home')
-              }
-            })
+          if(this.signInShow){
+            if (valid) {
+              this.getUser.userName = this.user.userName;
+              this.getUser.password = this.user.password;
+              this.$axios.post('/api/getPassword',this.getUser).then((res)=>{
+                this.userId = res.data.data[0].uid;
+                localStorage.setItem('uid',this.userId)
+                if (res.data.data[0].uid) {
+                  this.$router.push('/home')
+                }else {
+                  this.$message.error('请输入正确的用户名和密码');
+                }
+              })
+            }
           } else {
-            return false;
+            if (valid) {
+              this.getUser.userName = this.userUp.userName;
+              this.getUser.password = this.userUp.password;
+              this.getUser.phoneNumber = this.userUp.phoneNumber;
+              this.$axios.post('/api/addUser',this.getUser).then((res)=>{
+                  this.$message('注册成功');
+                  this.toggleSignIn();
+              })
+            }
           }
         });
+
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
@@ -187,7 +199,6 @@
   left: 50%;
   top: 100px;
   width: 30%;
-  height: 300px;
   vertical-align: middle;
   margin-left: -15%;
   padding: 20px 30px;

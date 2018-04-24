@@ -7,7 +7,7 @@
     <el-dropdown trigger="click">
       <span class="user-info-name el-dropdown-link">
         <img class="user-info-img" src="../assets/cat.jpg">
-        {{shopOwnerName}}
+        {{userName}}
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item><span @click="logout">退出登录</span></el-dropdown-item>
@@ -21,22 +21,24 @@
 import Bus from '../eventBus.js'
 
 export default {
-  data() {
-    return {
-      shopOwnerName: '小一'
+  props: {
+    userName: {
+      type: String,
+      default: '用户名'
     }
   },
-  // computed: {
-  //   shopOwnerName:function () {
-  //     return this.$refs.mineData.shopOwnerName
-  //   }
-  // }
+
+  computed: {
+    userName1:function () {
+      return this.userName;
+    }
+  },
   created: function(){
-    Bus.$on('mineData', (arg)=>{
+    Bus.$on('userData', (arg)=>{
       if (arg) {
-        this.shopOwnerName = arg
+        this.userName = arg
       } else {
-        this.shopOwnerName = "小一"
+        this.userName = userName1
       }
     })
   },

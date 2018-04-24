@@ -1,6 +1,8 @@
-let clothingType = (type) => {
+import Vue from 'vue'
+
+Vue.filter('clothingType', (value) => {
   let clothTypeFilter
-  switch (type) {
+  switch (value) {
     case '0':
       clothTypeFilter = '背心'
       break
@@ -27,11 +29,11 @@ let clothingType = (type) => {
       break
   }
   return clothTypeFilter
-}
+});
 
-let orderType = (type) => {
+Vue.filter('orderType', (value) => {
   let orderTypeFilter
-  switch (type) {
+  switch (value) {
     case '0':
       orderTypeFilter = '未发货'
       break
@@ -46,6 +48,4 @@ let orderType = (type) => {
       break
   }
   return orderTypeFilter
-}
-
-export { clothingType,orderType }
+});

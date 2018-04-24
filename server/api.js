@@ -35,7 +35,20 @@ router.post('/getPassword', (req, res) => {
 });
 router.get('/getCloth', (req, res) => {
     var sql = $sql.user.getCloth;
-    conn.query(sql, 'clothinglist', function(err, result) {
+    conn.query(sql,'clothinglist' , function(err, result) {
+        if (err) {
+        }
+        if (result) {
+            res.json({
+              data:result
+            });
+        }
+    })
+});
+router.get('/getUser/:uid', (req, res) => {
+    var sql = $sql.user.getUser;
+    var uid = req.params.uid;
+    conn.query(sql, [uid], function(err, result) {
         if (err) {
         }
         if (result) {
@@ -72,7 +85,19 @@ router.get('/getCloth/:cid', (req, res) => {
         }
     })
 });
-
+router.post('/addUser', (req, res) => {
+    var sql = $sql.user.addUser;
+    var params = req.body;
+    conn.query(sql, [params.userName,params.password,params.phoneNumber], function(err, result) {
+        if (err) {
+        }
+        if (result) {
+            res.json({
+              data:{}
+            });
+        }
+    })
+});
 router.post('/addCloth', (req, res) => {
     var sql = $sql.user.addCloth;
     var params = req.body;
@@ -90,9 +115,21 @@ router.post('/editCloth/:cid', (req, res) => {
     var sql = $sql.user.editCloth;
     var params = req.body;
     var cid = req.params.cid;
-    console.log(params);
-    console.log(cid);
     conn.query(sql, [params.clothName,params.clothType,params.clothNum,params.clothPrice,params.clothDes,cid], function(err, result) {
+        if (err) {
+        }
+        if (result) {
+            res.json({
+              data:result
+            });
+        }
+    })
+});
+router.post('/editUser/:uid', (req, res) => {
+    var sql = $sql.user.editUser;
+    var params = req.body;
+    var uid = req.params.uid;
+    conn.query(sql, [params.userName,params.phoneNumber,uid], function(err, result) {
         if (err) {
         }
         if (result) {
