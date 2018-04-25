@@ -94,6 +94,7 @@ export default {
         clothNum: 1,
         clothPrice: 0,
         clothDes: '',
+        userlist_uid:''
       },
       rules: {
             clothName: [
@@ -109,6 +110,9 @@ export default {
             ]
           }
     }
+  },
+  created() {
+    this.addform.userlist_uid = localStorage.getItem('uid')
   },
   methods: {
     // getDate () {

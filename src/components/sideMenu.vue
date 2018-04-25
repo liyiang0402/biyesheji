@@ -74,7 +74,6 @@ export default {
   top: 70px;
   bottom: 0;
   background: #2E363F;
-  height: 100%;
 }
 
 </style>

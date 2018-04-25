@@ -91,8 +91,7 @@ export default {
   },
   created:function () {
     this.cid = this.$route.params.cid;
-    let url = '/api/getCloth/'+this.cid;
-    this.$axios.get(url)
+    this.$axios.get('/api/getaCloth/'+this.cid)
       .then((res)=> {
         this.editData.clothDes = res.data.data[0].clothDes;
         this.editData.clothName = res.data.data[0].clothName;

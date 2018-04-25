@@ -145,9 +145,9 @@
               this.getUser.userName = this.user.userName;
               this.getUser.password = this.user.password;
               this.$axios.post('/api/getPassword',this.getUser).then((res)=>{
-                this.userId = res.data.data[0].uid;
-                localStorage.setItem('uid',this.userId)
-                if (res.data.data[0].uid) {
+                if (res.data.data.length!==0) {
+                  this.userId = res.data.data[0].uid
+                  localStorage.setItem('uid',this.userId)
                   this.$router.push('/home')
                 }else {
                   this.$message.error('请输入正确的用户名和密码');

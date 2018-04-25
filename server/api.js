@@ -33,9 +33,11 @@ router.post('/getPassword', (req, res) => {
         }
     })
 });
-router.get('/getCloth', (req, res) => {
+//获取所有服装
+router.get('/getCloth/:uid', (req, res) => {
     var sql = $sql.user.getCloth;
-    conn.query(sql,'clothinglist' , function(err, result) {
+    var params = req.params.uid;
+    conn.query(sql,[params] , function(err, result) {
         if (err) {
         }
         if (result) {
@@ -45,6 +47,7 @@ router.get('/getCloth', (req, res) => {
         }
     })
 });
+//获得用户信息
 router.get('/getUser/:uid', (req, res) => {
     var sql = $sql.user.getUser;
     var uid = req.params.uid;
@@ -58,6 +61,7 @@ router.get('/getUser/:uid', (req, res) => {
         }
     })
 });
+//删除服装
 router.get('/deleteCloth/:cid', (req, res) => {
     var sql = $sql.user.deleteCloth;
     var params = req.params.cid;
@@ -71,8 +75,8 @@ router.get('/deleteCloth/:cid', (req, res) => {
         }
     })
 });
-
-router.get('/getCloth/:cid', (req, res) => {
+//获得cid的服装
+router.get('/getaCloth/:cid', (req, res) => {
     var sql = $sql.user.selectCloth;
     var params = req.params.cid;
     conn.query(sql, [params], function(err, result) {
@@ -85,6 +89,7 @@ router.get('/getCloth/:cid', (req, res) => {
         }
     })
 });
+//注册
 router.post('/addUser', (req, res) => {
     var sql = $sql.user.addUser;
     var params = req.body;
@@ -98,10 +103,11 @@ router.post('/addUser', (req, res) => {
         }
     })
 });
+//添加服装
 router.post('/addCloth', (req, res) => {
     var sql = $sql.user.addCloth;
     var params = req.body;
-    conn.query(sql, [params.clothName,params.clothType,params.clothNum,params.clothPrice,params.clothDes], function(err, result) {
+    conn.query(sql, [params.clothName,params.clothType,params.clothNum,params.clothPrice,params.clothDes,params.userlist_uid], function(err, result) {
         if (err) {
         }
         if (result) {

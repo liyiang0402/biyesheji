@@ -54,7 +54,9 @@ export default {
 .header{
   width: 100%;
   height: 70px;
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
   overflow: hidden;
   font-family: "PingFang SC";
   color: #fff;

@@ -64,6 +64,7 @@
 export default {
   data () {
     return {
+      uid: '',
       data: [],
       pagesize: 7,
       currentPage: 1,
@@ -71,8 +72,9 @@ export default {
     }
   },
   created () {
+    this.uid = localStorage.getItem('uid')
     let that = this
-    this.$axios.get('/api/getCloth')
+    this.$axios.get('/api/getCloth/'+this.uid)
       .then(function (res) {
         that.data = res.data.data
       })

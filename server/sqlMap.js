@@ -2,8 +2,8 @@
 var sqlMap = {
     // 用户
     user: {
-        getCloth: 'select * from clothinglist',
-        addCloth: 'insert into clothinglist (clothName, clothType, clothNum,clothPrice,clothDes) values (?,?,?,?,?)',
+        getCloth: 'select * from clothinglist where userlist_uid = ?',
+        addCloth: 'insert into clothinglist (clothName, clothType, clothNum,clothPrice,clothDes,userlist_uid)  values (?,?,?,?,?,?)',
         selectCloth : 'select * from clothinglist where cid = ?',
         editCloth : 'update clothinglist set clothName = ?,clothType = ? ,clothNum = ?,clothPrice = ?,clothDes= ? where cid =?',
         deleteCloth: 'delete from clothinglist where cid= ? ',
