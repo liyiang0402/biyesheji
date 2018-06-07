@@ -19,20 +19,7 @@ var jsonWrite = function(res, ret) {
     }
 };
 
-// 增加获取服装数据接口
-router.post('/getPassword', (req, res) => {
-    var sql = $sql.user.getPassword;
-    var params = req.body;
-    conn.query(sql,[params.userName,params.password], function(err, result) {
-        if (err) {
-        }
-        if (result) {
-            res.json({
-              data:result
-            });
-        }
-    })
-});
+
 //获取所有服装
 router.get('/getCloth/:uid', (req, res) => {
     var sql = $sql.user.getCloth;
@@ -99,6 +86,20 @@ router.post('/addUser', (req, res) => {
         if (result) {
             res.json({
               data:{}
+            });
+        }
+    })
+});
+// 登录
+router.post('/getPassword', (req, res) => {
+    var sql = $sql.user.getPassword;
+    var params = req.body;
+    conn.query(sql,[params.userName,params.password], function(err, result) {
+        if (err) {
+        }
+        if (result) {
+            res.json({
+              data:result
             });
         }
     })
